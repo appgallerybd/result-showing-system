@@ -1,1 +1,74 @@
-<!doctype html><html lang="bn"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ফলাফল অনুসন্ধান</title><style>body{font-family:system-ui,sans-serif;background:#eff6ff;min-height:100vh;display:grid;place-items:center;margin:0}.card{background:white;padding:28px;border-radius:20px;max-width:440px;width:85%;box-shadow:0 12px 40px #1232}input,button{box-sizing:border-box;width:100%;padding:14px;margin-top:12px;border-radius:10px}input{border:1px solid #ccd}button{border:0;background:#2563eb;color:white;font-weight:bold}#result{margin-top:20px}</style><main class="card"><h1>পরীক্ষার ফলাফল</h1><p>রোল নম্বর লিখে ফলাফল খুঁজুন।</p><form id="f"><input id="roll" placeholder="রোল নম্বর, যেমন 1213" required><button>ফলাফল খুঁজুন</button></form><div id="result"></div></main><script>const f=document.querySelector('#f'),out=document.querySelector('#result');f.addEventListener('submit',async e=>{e.preventDefault();out.textContent='খোঁজা হচ্ছে…';try{const r=await fetch('./results.csv');if(!r.ok)throw Error();const lines=(await r.text()).trim().split(/\r?\n/),headers=lines.shift().split(','),row=lines.map(x=>x.split(',')).find(x=>x[0].trim()===document.querySelector('#roll').value.trim());if(!row){out.textContent='এই রোল নম্বরের ফলাফল পাওয়া যায়নি।';return}out.innerHTML='';headers.forEach((h,i)=>{const p=document.createElement('p');p.textContent=h+': '+(row[i]||'');out.appendChild(p)})}catch{out.textContent='results.csv ফাইলটি একই ফোল্ডারে রাখুন এবং ওয়েব সার্ভারে চালান।'}});</script></html>
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>পরীক্ষার ফলাফল অনুসন্ধান</title>
+<style>
+*{box-sizing:border-box}body{font-family:system-ui,'Noto Sans Bengali',sans-serif;background:linear-gradient(135deg,#eff6ff,#f0fdf4);min-height:100vh;margin:0;padding:24px;display:grid;place-items:center;color:#172554}.card{background:#fff;padding:28px;border-radius:20px;max-width:520px;width:100%;box-shadow:0 12px 40px #1232}h1{margin-top:0;font-size:1.7rem}p{line-height:1.6}.muted{color:#64748b}input,button{width:100%;padding:14px;margin-top:12px;border-radius:10px;font:inherit}input{border:1px solid #cbd5e1}button{border:0;background:#2563eb;color:#fff;font-weight:700;cursor:pointer}button:disabled{opacity:.6}.result{margin-top:20px}.row{padding:10px 12px;border-bottom:1px solid #e2e8f0;display:flex;gap:12px;justify-content:space-between}.row span:first-child{color:#475569}.row span:last-child{font-weight:600;text-align:right;overflow-wrap:anywhere}.notice{background:#f8fafc;padding:12px;border-radius:10px}
+</style>
+</head>
+<body>
+<main class="card">
+<h1>পরীক্ষার ফলাফল</h1>
+<p class="muted">আপনার রোল নম্বর লিখে ফলাফল অনুসন্ধান করুন।</p>
+<form id="searchForm">
+<label for="roll">রোল নম্বর</label>
+<input id="roll" inputmode="numeric" placeholder="যেমন: 1213" required>
+<button id="searchButton" type="submit">ফলাফল খুঁজুন</button>
+</form>
+<section id="result" class="result" aria-live="polite"></section>
+<p class="muted" style="font-size:12px">নোট: এটি শেখার জন্য নমুনা ফলাফল ব্যবস্থা। CSV ফাইলে থাকা তথ্যই এখানে দেখানো হবে।</p>
+</main>
+<script>
+const form=document.getElementById('searchForm');
+const rollInput=document.getElementById('roll');
+const output=document.getElementById('result');
+const button=document.getElementById('searchButton');
+let recordsPromise;
+function parseCSV(text){
+ const rows=[];let row=[],cell='',quoted=false;
+ for(let i=0;i<text.length;i++){
+  const c=text[i],next=text[i+1];
+  if(c==='"'&&quoted&&next==='"'){cell+='"';i++}
+  else if(c==='"'){quoted=!quoted}
+  else if(c===','&&!quoted){row.push(cell);cell=''}
+  else if((c==='\n'||c==='\r')&&!quoted){
+   if(c==='\r'&&next==='\n')i++;
+   row.push(cell);if(row.some(v=>v.trim()!==''))rows.push(row);
+   row=[];cell='';
+  }else cell+=c;
+ }
+ if(cell!==''||row.length){row.push(cell);if(row.some(v=>v.trim()!==''))rows.push(row)}
+ if(!rows.length)return [];
+ const headers=rows.shift().map(v=>v.trim().replace(/^\uFEFF/,''));
+ return rows.map(values=>Object.fromEntries(headers.map((h,i)=>[h,(values[i]||'').trim()])));
+}
+async function loadRecords(){
+ if(!recordsPromise)recordsPromise=fetch('./results.csv',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('CSV_LOAD');return r.text()}).then(parseCSV);
+ return recordsPromise;
+}
+const labels={roll:'রোল নম্বর',name:'শিক্ষার্থীর নাম',father_name:'পিতার নাম',mother_name:'মাতার নাম',class:'শ্রেণি',section:'শাখা',exam:'পরীক্ষা',bangla:'বাংলা',english:'ইংরেজি',arabic:'আরবি',mathematics:'গণিত',general_knowledge:'সাধারণ জ্ঞান',fiqh:'ফিকহ',total_marks:'মোট নম্বর',full_marks:'পূর্ণমান',percentage:'শতকরা নম্বর',gpa:'জিপিএ',result:'ফলাফল'};
+form.addEventListener('submit',async e=>{
+ e.preventDefault();const roll=rollInput.value.trim();if(!roll)return;
+ button.disabled=true;output.textContent='ফলাফল খোঁজা হচ্ছে…';
+ try{
+  const records=await loadRecords();
+  const found=records.find(item=>item.roll===roll);
+  if(!found){output.textContent='এই রোল নম্বরের কোনো ফলাফল পাওয়া যায়নি। রোল নম্বরটি আবার পরীক্ষা করুন।';return}
+  output.replaceChildren();
+  const heading=document.createElement('h2');heading.textContent='ফলাফলের বিবরণ';output.appendChild(heading);
+  Object.entries(found).forEach(([key,value])=>{
+   if(!value)return;
+   const line=document.createElement('div');line.className='row';
+   const label=document.createElement('span');label.textContent=labels[key]||key;
+   const val=document.createElement('span');val.textContent=value;
+   line.append(label,val);output.appendChild(line);
+  });
+ }catch(err){
+  output.textContent='ফলাফল ডেটা লোড করা যাচ্ছে না। GitHub Pages চালু আছে কি না এবং results.csv ফাইলটি index.html-এর সঙ্গে একই ফোল্ডারে আছে কি না দেখুন। GitHub-এর কোড দেখার পেজে সরাসরি অনুসন্ধান কাজ করবে না।';
+ }finally{button.disabled=false}
+});
+</script>
+</body>
+</html>
