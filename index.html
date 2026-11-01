@@ -67,39 +67,39 @@ button:disabled{opacity:.65;cursor:wait;transform:none}
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:640px){.topbar{min-height:72px;padding:10px 14px}.brand{font-size:16px;gap:9px}.brand-icon{width:38px;height:38px;flex-basis:38px}.school-small{font-size:12px}.top-pill{font-size:11px;padding:7px 9px}main{width:min(100% - 22px,980px);margin:15px auto 30px}.hero{padding:29px 23px 45px;border-radius:23px}.hero p{font-size:15px}.search-card{margin:-25px 10px 0;padding:19px 16px;border-radius:18px}.search-row{flex-direction:column}.search-btn{width:100%;min-width:0}.input-wrap input{height:53px}#result{margin:18px 10px 0}.result-head{padding:19px 17px}.student-name{font-size:22px}.stats{padding:15px;gap:8px}.stat{padding:12px 10px}.stat strong{font-size:21px}.stat span{font-size:12px}.details{padding:0 15px 18px;grid-template-columns:1fr;gap:8px}.subject-title{padding:0 15px 10px}.subjects{padding:0 15px 18px;grid-template-columns:repeat(2,minmax(0,1fr))}.result-actions{padding:15px;align-items:stretch;flex-direction:column}.pdf-btn{width:100%}}
 @media print{
- @page{size:A4;margin:10mm}
+ @page{size:A4 portrait;margin:7mm}
  body{background:#fff!important;color:#16243a!important;font-family:'SolaimanLipi',sans-serif!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
  .topbar,.hero,.search-card,body:before{display:none!important}
  main{width:100%;max-width:none;margin:0;padding:0}
  #result{margin:0!important}
  .result-card{display:none!important}
- .print-sheet{display:block!important;position:relative;min-height:265mm;border:3px double #b58a3c;padding:7mm;background:#fff;overflow:hidden}
- .print-inner{border:1px solid #d9c28f;min-height:248mm;padding:8mm;position:relative}
- .print-inner:before{content:"";position:absolute;inset:4mm;border:1px solid #eee4cd;pointer-events:none}
- .print-top{text-align:center;border-bottom:2px solid #183c6b;padding:2mm 0 5mm;position:relative}
- .print-emblem{width:19mm;height:19mm;margin:0 auto 3mm;border:2px solid #b58a3c;border-radius:50%;display:grid;place-items:center;color:#183c6b;font-size:23px;font-weight:bold}
- .print-school{font-size:25px;font-weight:bold;color:#102b50;line-height:1.4}
+ .print-sheet{display:block!important;position:relative;width:100%;height:277mm;min-height:0;border:0!important;padding:0;background:#fff;overflow:hidden}
+ .print-inner{border:0!important;min-height:0;height:100%;padding:3mm 2mm;position:relative}
+ .print-inner:before{display:none!important}
+ .print-top{text-align:center;border-bottom:1.5px solid #183c6b;padding:1mm 0 3mm;position:relative}
+ .print-emblem{width:14mm;height:14mm;margin:0 auto 2mm;border:0!important;border-radius:0;display:grid;place-items:center;color:#183c6b;font-size:21px;font-weight:bold}
+ .print-school{font-size:23px;font-weight:bold;color:#102b50;line-height:1.3}
  .print-address{font-size:14px;color:#4b5f79;margin-top:1mm}
- .print-title{display:inline-block;margin-top:4mm;padding:2mm 12mm;border-radius:2px;background:#102b50!important;color:white!important;font-size:18px;font-weight:bold;letter-spacing:.4px}
- .print-meta{display:flex;justify-content:space-between;gap:6mm;margin:5mm 0 3mm;font-size:14px}
- .print-student{display:grid;grid-template-columns:1fr 1fr;gap:2mm 8mm;padding:4mm;background:#f7f9fc!important;border:1px solid #d9e0e9}
+ .print-title{display:inline-block;margin-top:2.5mm;padding:1.5mm 10mm;border-radius:0;background:#102b50!important;color:white!important;font-size:16px;font-weight:bold;letter-spacing:.2px}
+ .print-meta{display:flex;justify-content:space-between;gap:6mm;margin:3mm 0 2mm;font-size:13px}
+ .print-student{display:grid;grid-template-columns:1fr 1fr;gap:1mm 7mm;padding:2.5mm 3mm;background:#f7f9fc!important;border:0!important;border-left:2px solid #d9e0e9!important}
  .print-field{display:flex;gap:2mm;font-size:14px;line-height:1.7}
  .print-field b{color:#3e5069;font-weight:normal;white-space:nowrap}
  .print-field span{font-weight:bold;color:#172d4a;overflow-wrap:anywhere}
- .print-table-title{text-align:center;font-size:16px;font-weight:bold;color:#102b50;margin:5mm 0 2mm}
- .print-table{width:100%;border-collapse:collapse;font-size:14px}
+ .print-table-title{text-align:center;font-size:15px;font-weight:bold;color:#102b50;margin:3mm 0 1.5mm}
+ .print-table{width:100%;border-collapse:collapse;font-size:13px}
  .print-table th{background:#102b50!important;color:#fff!important;font-weight:bold}
- .print-table th,.print-table td{border:1px solid #bfcbd9;padding:2.5mm 3mm;text-align:left}
+ .print-table th,.print-table td{border:0!important;border-bottom:1px solid #d7e0ea!important;padding:1.8mm 2.5mm;text-align:left}
  .print-table td:last-child,.print-table th:last-child{text-align:center;width:28mm}
  .print-table tbody tr:nth-child(even){background:#f5f8fc!important}
- .print-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin-top:4mm}
- .print-summary div{border:1px solid #cbd5e1;background:#f7f9fc!important;padding:3mm;text-align:center}
+ .print-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin-top:3mm}
+ .print-summary div{border:0!important;border-top:1.5px solid #9aaec5!important;background:#f7f9fc!important;padding:2mm;text-align:center}
  .print-summary span{display:block;font-size:12px;color:#607087}
- .print-summary strong{display:block;font-size:20px;color:#102b50;margin-top:1mm}
- .print-result{text-align:center;margin-top:4mm;font-size:15px;font-weight:bold;color:#126647}
- .print-note{font-size:11px;color:#6c7787;border-top:1px solid #d8dfE8;margin-top:5mm;padding-top:2mm;text-align:center}
- .print-signatures{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12mm;margin-top:16mm;text-align:center;font-size:12px;color:#3d4d62}
- .print-signatures div{border-top:1px solid #6d7b8c;padding-top:2mm}
+ .print-summary strong{display:block;font-size:18px;color:#102b50;margin-top:.5mm}
+ .print-result{text-align:center;margin-top:2.5mm;font-size:14px;font-weight:bold;color:#126647}
+ .print-note{font-size:10px;color:#6c7787;border-top:0!important;margin-top:2mm;padding-top:0;text-align:center}
+ .print-signatures{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12mm;margin-top:12mm;text-align:center;font-size:12px;color:#3d4d62}
+ .print-signatures div{border-top:1px solid #6d7b8c;padding-top:1.5mm}
  .stat,.detail,.subject,.print-student,.print-table tr{break-inside:avoid}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
