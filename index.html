@@ -3,22 +3,102 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>পরীক্ষার ফলাফল অনুসন্ধান</title>
+<meta name="theme-color" content="#071b35">
+<title>ফলাফল অনুসন্ধান | Academic Results</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}body{font-family:system-ui,'Noto Sans Bengali',sans-serif;background:linear-gradient(135deg,#eff6ff,#f0fdf4);min-height:100vh;margin:0;padding:24px;display:grid;place-items:center;color:#172554}.card{background:#fff;padding:28px;border-radius:20px;max-width:520px;width:100%;box-shadow:0 12px 40px #1232}h1{margin-top:0;font-size:1.7rem}p{line-height:1.6}.muted{color:#64748b}input,button{width:100%;padding:14px;margin-top:12px;border-radius:10px;font:inherit}input{border:1px solid #cbd5e1}button{border:0;background:#2563eb;color:#fff;font-weight:700;cursor:pointer}button:disabled{opacity:.6}.result{margin-top:20px}.row{padding:10px 12px;border-bottom:1px solid #e2e8f0;display:flex;gap:12px;justify-content:space-between}.row span:first-child{color:#475569}.row span:last-child{font-weight:600;text-align:right;overflow-wrap:anywhere}.notice{background:#f8fafc;padding:12px;border-radius:10px}
+:root{--navy:#071b35;--navy2:#102b50;--blue:#356dff;--mint:#6ee7c3;--ink:#12233f;--muted:#6d7d96;--line:#e6edf6}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:'Hind Siliguri',system-ui,sans-serif;color:var(--ink);background:#f3f7fc;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 8% 10%,#dbeafe 0,transparent 35%),radial-gradient(ellipse at 95% 85%,#d1fae5 0,transparent 32%);z-index:-1}
+.topbar{height:76px;padding:0 max(22px,calc((100% - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px;color:var(--navy)}
+.brand-icon{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;color:#fff;background:linear-gradient(145deg,#437cff,#2348bb);box-shadow:0 8px 20px #356dff40}
+.top-pill{font-size:13px;font-weight:600;color:#176b55;background:#dffaf0;padding:8px 13px;border:1px solid #c5f2e3;border-radius:999px}
+main{width:min(100% - 32px,980px);margin:24px auto 52px}
+.hero{position:relative;overflow:hidden;border-radius:30px;background:linear-gradient(125deg,#071b35 0%,#102e55 60%,#19436a 100%);padding:38px 40px;color:white;box-shadow:0 22px 60px #102b5025}
+.hero:before,.hero:after{content:"";position:absolute;border:1px solid #ffffff15;border-radius:50%;pointer-events:none}
+.hero:before{width:330px;height:330px;right:-80px;top:-175px;box-shadow:0 0 0 28px #ffffff05,0 0 0 58px #ffffff04}
+.hero:after{width:210px;height:210px;right:130px;bottom:-170px;box-shadow:0 0 0 24px #ffffff05}
+.hero-content{position:relative;z-index:1;max-width:610px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.3px;color:#a9f4df;background:#ffffff0d;border:1px solid #ffffff20;border-radius:999px;padding:7px 12px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint)}
+h1{font-size:clamp(29px,5vw,44px);line-height:1.2;margin:18px 0 10px;letter-spacing:-.6px}
+.hero p{font-size:16px;color:#c3d2e6;line-height:1.7;margin:0;max-width:520px}
+.search-card{position:relative;z-index:2;margin:-25px 24px 0;background:#fff;border:1px solid #e8eef7;border-radius:22px;padding:25px;box-shadow:0 18px 48px #152c4d14}
+.search-title{display:flex;align-items:center;gap:10px;margin-bottom:15px;font-size:18px;font-weight:700}
+.search-title svg{color:var(--blue)}
+label{display:block;font-size:14px;font-weight:600;color:#53647e;margin-bottom:8px}
+.search-row{display:flex;gap:12px}
+.input-wrap{position:relative;flex:1}
+.input-wrap svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#8b9bb2}
+input{width:100%;height:56px;border:1px solid #dce5f1;border-radius:13px;background:#f9fbfe;padding:0 16px 0 47px;font:500 16px 'Hind Siliguri',sans-serif;color:var(--ink);outline:none;transition:border .2s,box-shadow .2s,background .2s}
+input:focus{border-color:#6c92ff;background:#fff;box-shadow:0 0 0 4px #356dff16}
+button{font:600 16px 'Hind Siliguri',sans-serif;cursor:pointer;border:0;transition:transform .2s,box-shadow .2s,opacity .2s}
+.search-btn{min-width:178px;height:56px;border-radius:13px;color:white;background:linear-gradient(135deg,#427bff,#2856d8);box-shadow:0 9px 20px #356dff35;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 20px}
+.search-btn:hover{transform:translateY(-2px);box-shadow:0 13px 24px #356dff45}
+.search-btn:active{transform:translateY(0)}
+button:disabled{opacity:.65;cursor:wait;transform:none}
+.helper{font-size:13px;color:#8290a5;margin:10px 0 0}
+#result{margin:22px 24px 0}
+.status{padding:17px 18px;border-radius:14px;background:#fff;border:1px solid var(--line);color:#53647e;box-shadow:0 8px 22px #102b5008}
+.status.error{background:#fff7f7;border-color:#ffdada;color:#a33131}
+.result-card{background:#fff;border:1px solid #e4ebf5;border-radius:22px;overflow:hidden;box-shadow:0 18px 45px #102b5010;animation:rise .45s ease both}
+.result-head{padding:23px 25px;background:linear-gradient(120deg,#f8fbff,#eef5ff);border-bottom:1px solid #e5edf8;display:flex;justify-content:space-between;gap:15px;align-items:center}
+.student-label{font-size:12px;font-weight:700;color:#71829b;text-transform:uppercase;letter-spacing:1px}
+.student-name{font-size:25px;font-weight:700;margin:3px 0 0;color:var(--navy)}
+.pass-badge{display:inline-flex;align-items:center;gap:6px;background:#dcfce9;color:#13734b;border:1px solid #b9f2d0;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:700;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px 24px}
+.stat{padding:15px;border-radius:15px;background:#f8faff;border:1px solid #eaf0f8}
+.stat span{display:block;font-size:13px;color:#75849b;margin-bottom:4px}
+.stat strong{font-size:25px;line-height:1.2;color:var(--navy)}
+.details{padding:0 24px 22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.detail{padding:12px 14px;border:1px solid #edf1f7;border-radius:12px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.detail span{font-size:14px;color:#728198}.detail strong{font-size:14px;text-align:right;overflow-wrap:anywhere;color:#243955}
+.subject-title{padding:0 24px 12px;font-weight:700;color:#344966}
+.subjects{padding:0 24px 22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.subject{border:1px solid #e7edf6;border-radius:12px;padding:13px;background:#fff}
+.subject span{display:block;font-size:13px;color:#7b8ba2}.subject strong{display:block;font-size:20px;margin-top:3px;color:#1a3558}
+.result-actions{border-top:1px solid #edf1f7;padding:17px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.result-actions p{font-size:12px;color:#8a98ab;margin:0}
+.print-btn{border:1px solid #dce5f1;background:#fff;color:#344966;border-radius:10px;padding:10px 15px;display:flex;align-items:center;gap:8px}
+.print-btn:hover{background:#f3f7ff;border-color:#b7caff}
+footer{text-align:center;color:#8996a9;font-size:13px;padding:22px 12px 0}
+footer strong{color:#586b86}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:640px){.topbar{height:66px}.brand{font-size:15px}.brand-icon{width:38px;height:38px}.top-pill{font-size:11px;padding:7px 10px}main{width:min(100% - 22px,980px);margin:15px auto 30px}.hero{padding:29px 23px 45px;border-radius:23px}.hero p{font-size:14px}.search-card{margin:-25px 10px 0;padding:19px 16px;border-radius:18px}.search-row{flex-direction:column}.search-btn{width:100%;min-width:0}.input-wrap input{height:53px}#result{margin:18px 10px 0}.result-head{padding:19px 17px}.student-name{font-size:21px}.stats{padding:15px;gap:8px}.stat{padding:12px 10px}.stat strong{font-size:21px}.stat span{font-size:12px}.details{padding:0 15px 18px;grid-template-columns:1fr;gap:8px}.subject-title{padding:0 15px 10px}.subjects{padding:0 15px 18px;grid-template-columns:repeat(2,minmax(0,1fr))}.result-actions{padding:15px;align-items:flex-start;flex-direction:column}.print-btn{width:100%;justify-content:center}}
+@media print{body{background:#fff}.topbar,.hero,.search-card,footer,.result-actions,.helper{display:none!important}main{width:100%;margin:0}.result-card{box-shadow:none;border:1px solid #bbb}.result-head{background:#fff!important}.stats{break-inside:avoid}.detail,.subject{break-inside:avoid}#result{margin:0}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<main class="card">
-<h1>পরীক্ষার ফলাফল</h1>
-<p class="muted">আপনার রোল নম্বর লিখে ফলাফল অনুসন্ধান করুন।</p>
-<form id="searchForm">
-<label for="roll">রোল নম্বর</label>
-<input id="roll" inputmode="numeric" placeholder="যেমন: 1213" required>
-<button id="searchButton" type="submit">ফলাফল খুঁজুন</button>
-</form>
-<section id="result" class="result" aria-live="polite"></section>
-<p class="muted" style="font-size:12px">নোট: এটি শেখার জন্য নমুনা ফলাফল ব্যবস্থা। CSV ফাইলে থাকা তথ্যই এখানে দেখানো হবে।</p>
+<header class="topbar">
+ <div class="brand"><span class="brand-icon"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 6v15.5A2.5 2.5 0 0 1 6.5 19H20M8 7h8M8 11h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span> Academic Results</div>
+ <span class="top-pill">● ফলাফল পোর্টাল</span>
+</header>
+<main>
+ <section class="hero">
+  <div class="hero-content">
+   <span class="eyebrow"><span class="dot"></span> STUDENT RESULT PORTAL</span>
+   <h1>তোমার ফলাফল,<br>এক ক্লিকেই সামনে</h1>
+   <p>রোল নম্বর দিয়ে সহজেই পরীক্ষার ফলাফল দেখুন। আপনার একাডেমিক অগ্রগতির তথ্য থাকুক এক জায়গায়, সুন্দর ও গোছানোভাবে।</p>
+  </div>
+ </section>
+ <section class="search-card">
+  <div class="search-title"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> ফলাফল অনুসন্ধান</div>
+  <form id="searchForm">
+   <label for="roll">শিক্ষার্থীর রোল নম্বর</label>
+   <div class="search-row">
+    <div class="input-wrap"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M8 8h8M8 12h2m4 0h2m-8 4h2m4 0h2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="roll" inputmode="numeric" autocomplete="off" placeholder="রোল নম্বর লিখুন (যেমন 1213)" required></div>
+    <button class="search-btn" id="searchButton" type="submit"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="2"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> ফলাফল খুঁজুন</button>
+   </div>
+   <p class="helper">অনুগ্রহ করে আপনার সঠিক রোল নম্বরটি লিখুন।</p>
+  </form>
+ </section>
+ <section id="result" aria-live="polite"></section>
+ <footer>Designed with care · <strong>Academic Results Portal</strong><br>এটি শেখার জন্য তৈরি নমুনা ফলাফল ব্যবস্থা।</footer>
 </main>
 <script>
 const form=document.getElementById('searchForm');
@@ -33,11 +113,8 @@ function parseCSV(text){
   if(c==='"'&&quoted&&next==='"'){cell+='"';i++}
   else if(c==='"'){quoted=!quoted}
   else if(c===','&&!quoted){row.push(cell);cell=''}
-  else if((c==='\n'||c==='\r')&&!quoted){
-   if(c==='\r'&&next==='\n')i++;
-   row.push(cell);if(row.some(v=>v.trim()!==''))rows.push(row);
-   row=[];cell='';
-  }else cell+=c;
+  else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&next==='\n')i++;row.push(cell);if(row.some(v=>v.trim()!==''))rows.push(row);row=[];cell=''}
+  else cell+=c;
  }
  if(cell!==''||row.length){row.push(cell);if(row.some(v=>v.trim()!==''))rows.push(row)}
  if(!rows.length)return [];
@@ -49,24 +126,41 @@ async function loadRecords(){
  return recordsPromise;
 }
 const labels={roll:'রোল নম্বর',name:'শিক্ষার্থীর নাম',father_name:'পিতার নাম',mother_name:'মাতার নাম',class:'শ্রেণি',section:'শাখা',exam:'পরীক্ষা',bangla:'বাংলা',english:'ইংরেজি',arabic:'আরবি',mathematics:'গণিত',general_knowledge:'সাধারণ জ্ঞান',fiqh:'ফিকহ',total_marks:'মোট নম্বর',full_marks:'পূর্ণমান',percentage:'শতকরা নম্বর',gpa:'জিপিএ',result:'ফলাফল'};
+const subjects=['bangla','english','arabic','mathematics','general_knowledge','fiqh'];
+function el(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n}
+function addDetail(parent,label,value){const d=el('div','detail');d.append(el('span','',label),el('strong','',value||'—'));parent.appendChild(d)}
+function renderResult(found){
+ output.replaceChildren();
+ const card=el('article','result-card');
+ const head=el('div','result-head'),person=el('div');
+ person.append(el('div','student-label','শিক্ষার্থীর ফলাফল'),el('h2','student-name',found.name||'শিক্ষার্থী'));
+ head.appendChild(person);
+ const badge=el('span','pass-badge',(found.result||'').includes('উত্তীর্ণ')?'✓ '+found.result:(found.result||'ফলাফল প্রকাশিত'));
+ head.appendChild(badge);card.appendChild(head);
+ const stats=el('div','stats');
+ [[found.total_marks||'—','মোট নম্বর'],[found.gpa||'—','জিপিএ'],[(found.percentage?found.percentage+'%':'—'),'প্রাপ্তির হার']].forEach(([v,l])=>{const s=el('div','stat');s.append(el('span','',l),el('strong','',v));stats.appendChild(s)});
+ card.appendChild(stats);
+ const details=el('div','details');
+ [['রোল নম্বর',found.roll],['পিতার নাম',found.father_name],['মাতার নাম',found.mother_name],['শ্রেণি',found.class],['শাখা',found.section],['পরীক্ষা',found.exam],['পূর্ণমান',found.full_marks]].forEach(([l,v])=>{if(v)addDetail(details,l,v)});
+ card.appendChild(details);
+ const title=el('div','subject-title','বিষয়ভিত্তিক নম্বর');
+ const subjectGrid=el('div','subjects');
+ subjects.forEach(key=>{if(found[key]!==undefined){const s=el('div','subject');s.append(el('span','',labels[key]||key),el('strong','',found[key]));subjectGrid.appendChild(s)}});
+ card.append(title,subjectGrid);
+ const actions=el('div','result-actions');
+ actions.appendChild(el('p','','ফলাফলের তথ্য CSV ডেটা থেকে নেওয়া হয়েছে।'));
+ const print=el('button','print-btn','⎙  ফলাফল প্রিন্ট করুন');print.type='button';print.addEventListener('click',()=>window.print());actions.appendChild(print);
+ card.appendChild(actions);output.appendChild(card);
+}
 form.addEventListener('submit',async e=>{
  e.preventDefault();const roll=rollInput.value.trim();if(!roll)return;
- button.disabled=true;output.textContent='ফলাফল খোঁজা হচ্ছে…';
+ button.disabled=true;output.replaceChildren();output.appendChild(el('div','status','ফলাফল খোঁজা হচ্ছে…'));
  try{
-  const records=await loadRecords();
-  const found=records.find(item=>item.roll===roll);
-  if(!found){output.textContent='এই রোল নম্বরের কোনো ফলাফল পাওয়া যায়নি। রোল নম্বরটি আবার পরীক্ষা করুন।';return}
-  output.replaceChildren();
-  const heading=document.createElement('h2');heading.textContent='ফলাফলের বিবরণ';output.appendChild(heading);
-  Object.entries(found).forEach(([key,value])=>{
-   if(!value)return;
-   const line=document.createElement('div');line.className='row';
-   const label=document.createElement('span');label.textContent=labels[key]||key;
-   const val=document.createElement('span');val.textContent=value;
-   line.append(label,val);output.appendChild(line);
-  });
+  const records=await loadRecords();const found=records.find(item=>item.roll===roll);
+  if(!found){output.replaceChildren(el('div','status error','এই রোল নম্বরের কোনো ফলাফল পাওয়া যায়নি। রোল নম্বরটি আবার পরীক্ষা করুন।'));return}
+  renderResult(found);
  }catch(err){
-  output.textContent='ফলাফল ডেটা লোড করা যাচ্ছে না। GitHub Pages চালু আছে কি না এবং results.csv ফাইলটি index.html-এর সঙ্গে একই ফোল্ডারে আছে কি না দেখুন। GitHub-এর কোড দেখার পেজে সরাসরি অনুসন্ধান কাজ করবে না।';
+  output.replaceChildren(el('div','status error','ফলাফল ডেটা লোড করা যাচ্ছে না। GitHub Pages চালু আছে কি না এবং results.csv ফাইলটি index.html-এর সঙ্গে একই ফোল্ডারে আছে কি না দেখুন।'));
  }finally{button.disabled=false}
 });
 </script>
